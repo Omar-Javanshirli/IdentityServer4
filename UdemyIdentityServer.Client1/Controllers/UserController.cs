@@ -54,6 +54,7 @@ namespace UdemyIdentityServer.Client1.Controllers
             refreshTokenRequest.RefreshToken = refreshToken;
             refreshTokenRequest.Address = disco.TokenEndpoint;
 
+            //RequestRefreshTokenAsync bu funksiya mene Refresh token, Access Token , Id token gaytaracag
             var token = await httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
 
             if (token.IsError)
@@ -65,15 +66,21 @@ namespace UdemyIdentityServer.Client1.Controllers
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.IdToken,Value= token.IdentityToken},
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.AccessToken,Value= token.AccessToken},
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.RefreshToken,Value= token.RefreshToken},
-                new AuthenticationToken{ Name=OpenIdConnectParameterNames.ExpiresIn,Value= DateTime.UtcNow.AddSeconds(token.ExpiresIn).ToString("o", CultureInfo.InvariantCulture)}
+                new AuthenticationToken{ Name=OpenIdConnectParameterNames.ExpiresIn,Value= 
+                DateTime.UtcNow.AddSeconds(token.ExpiresIn).ToString("o", CultureInfo.InvariantCulture)}
             };
-
+            
+            //Movcud olan Authentication datalarini elde edirem
             var authenticationResult = await HttpContext.AuthenticateAsync();
 
             var properties = authenticationResult.Properties;
 
+            //Authentication propertilerini update edirem.Artig bu tokenler kecerli olacaglar.
             properties.StoreTokens(tokens);
 
+            //Principial => Claim-lerden duzeldilmis yani istifadecinin datalarinnen dezeldimis datalardan ibaret olur.
+            //Principial => bir sexsiyet vesiqesi kimi fikirlesin.Bu sexsiyet vesiqesinde ki ad,soyad yas bu kimi seyleride 
+            //Claim-lar olarag dusunun. Ortaya Claimlerden duzeldilmis bir sexsiyet vesiqesi cixir.
             await HttpContext.SignInAsync("Cookies", authenticationResult.Principal, properties);
 
             return RedirectToAction("Index");

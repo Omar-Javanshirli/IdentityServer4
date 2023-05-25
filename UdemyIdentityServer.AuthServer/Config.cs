@@ -81,6 +81,9 @@ namespace UdemyIdentityServer.AuthServer
                     {
                         new Claim("given_name", "java_omer"),
                         new Claim("family_name", "Javanshirli"),
+                        new Claim("country","Azerbaycan"),
+                        new Claim("city","Baki"),
+                        new Claim("role","admin")
                     }
                 },
 
@@ -163,7 +166,9 @@ namespace UdemyIdentityServer.AuthServer
                     //Refresh tokene bime vaxtinin verilmesi
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60) - DateTime.Now).TotalSeconds,
 
-                    //RequireConsent = false
+                    //login oldugumuza zaman istifadecinin hansi melumatlarinin website-a gonderilmesinin icazelerinin 
+                    //istifadeciler terefinnen    customize etmesini isteyirsizse bu true olmalidir.(Onay Sayfasi)
+                    RequireConsent = true
                 },
                  new Client
                  {
