@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,7 +23,7 @@ namespace UdemyIdentityServer.Client1.Services
             var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
             //Api-ye sorgu gondezden evven sorgu gondereceyim request-in body hissesinde Authorozation Key ve Value-nu gondermey lazimdir.
-            //bu code hemen tokeni elaqeli requestin header hissesine yazir.
+            //bu code hemen tokeni elaqeli requestin header hissesine yazir. Tokeni Authorizatio  header de set edirik.
             _client.SetBearerToken(accessToken);
 
             return _client;

@@ -33,8 +33,6 @@ namespace UdemyIdentityServer.Client1.Controllers
             HttpClient client = await _apiResourceHttpClient.GetHttpClient();
             List<Product> products = new List<Product>();
 
-            //https://localhost:5006
-
             //HttpGet sorgusu yaradirig
             var response = await client.GetAsync("https://localhost:5016/api/products/getproducts");
 
