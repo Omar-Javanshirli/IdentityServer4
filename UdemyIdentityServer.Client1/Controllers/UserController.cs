@@ -43,7 +43,7 @@ namespace UdemyIdentityServer.Client1.Controllers
 
             if (disco.IsError)
             {
-                //loglama yap
+                //loglama yap 
             }
 
             var refreshToken = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
