@@ -133,6 +133,7 @@ namespace UdemyIdentityServer.AuthServer
                     //Bize Authorization Code ve id_token qayidirdi. Hemen bu Authorization Code ile id_token-nin hansi Uri qayidacagini burda bildiririk. 
                     RedirectUris = { "https://localhost:5006/signin-oidc" },
 
+                    //Hem Client1-den cixis hem identityServerden cixis etmeyim ucun bu kod yazilmalidir
                     PostLogoutRedirectUris = { "https://localhost:5006/signout-callback-oidc" },
 
                     //Elqeli Client-lar Hansi icazelere sahib olacag Scopes-lar bunu bildirir
@@ -144,12 +145,25 @@ namespace UdemyIdentityServer.AuthServer
                         "CountryAndCity",
                         "Roles"
                     },
+                    //Access tokenin bitme vaxtinin teyin edilmesi
                     AccessTokenLifetime = 2 * 60 * 60,
+
+                    //Refresh token elde etmek ucun true etmek lazimdir
                     AllowOfflineAccess = true,
+
+                    //Eger Refresh Tokeni yalniz bir defe istifade etmek isdiyirsen se TokenUsage.OneTimeOnly olmalidir
+                    //Yox eger Refresh Tokenin bitme vaxtina qeder istifade etmek isdiyirsen se asagida ki kimi olmalidir
                     RefreshTokenUsage = TokenUsage.ReUse,
+
+                    //Refresh Tokenin omru ile bagli bezi ayarlar var. Eger biz TokenExpiration.Sliding bunu secsey bu o demekdir ki,
+                    //Eger siz 15 gun icinde bu Refresh Tokene bir sorgu atarsag bu Tokenin omrunu yene 15 gun uzadir.
+                    // Yox eger Sabit bir vaxt vermey isdiyirsizse bu zaman asagida ki kimi etmelisiniz.
                     RefreshTokenExpiration = TokenExpiration.Absolute,
+
+                    //Refresh tokene bime vaxtinin verilmesi
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60) - DateTime.Now).TotalSeconds,
-                    RequireConsent = false
+
+                    //RequireConsent = false
                 },
                  new Client
                  {

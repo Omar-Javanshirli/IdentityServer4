@@ -64,7 +64,10 @@ namespace UdemyIdentityServer.Client1
                 opts.SaveTokens = true;
 
                 opts.Scope.Add("api1.read");
+
+                //Refresh token ucun
                 opts.Scope.Add("offline_access");
+
                 opts.Scope.Add("CountryAndCity");
                 opts.Scope.Add("Roles");
                 opts.ClaimActions.MapUniqueJsonKey("country", "country");
