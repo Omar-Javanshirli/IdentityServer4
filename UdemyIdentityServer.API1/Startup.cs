@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.OpenApi.Models;
 
 namespace UdemyIdentityServer.API1
 {
@@ -35,6 +26,8 @@ namespace UdemyIdentityServer.API1
                 opts.Authority = "https://localhost:5001";
                 opts.Audience = "resource_api1";
             });
+
+     
 
             //yetkilendirme
             services.AddAuthorization(opts =>
@@ -59,6 +52,7 @@ namespace UdemyIdentityServer.API1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+          
             }
 
             app.UseHttpsRedirection();

@@ -19,10 +19,10 @@ namespace UdemyIdentityServer.API1.Controllers
         {
             var productList = new List<Product>() {
                 new Product { Id = 1, Name = "Kalem", Price = 100, Stock = 500 } ,
-                     new Product { Id = 2, Name = "Silgi", Price = 100, Stock = 500 },
-                          new Product { Id = 3, Name = "Defter", Price = 100, Stock = 500 },
-                               new Product { Id = 4, Name = "Kitap", Price = 100, Stock = 500 },
-                                      new Product { Id = 5, Name = "Bant", Price = 100, Stock = 500 }
+              new Product { Id = 2, Name = "Silgi", Price = 100, Stock = 500 },
+              new Product { Id = 3, Name = "Defter", Price = 100, Stock = 500 },
+             new Product { Id = 4, Name = "Kitap", Price = 100, Stock = 500 },
+             new Product { Id = 5, Name = "Bant", Price = 100, Stock = 500 }
             };
 
             return Ok(productList);

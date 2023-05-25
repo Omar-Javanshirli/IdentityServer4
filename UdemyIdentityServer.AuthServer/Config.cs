@@ -134,6 +134,8 @@ namespace UdemyIdentityServer.AuthServer
                     RedirectUris = { "https://localhost:5006/signin-oidc" },
 
                     PostLogoutRedirectUris = { "https://localhost:5006/signout-callback-oidc" },
+
+                    //Elqeli Client-lar Hansi icazelere sahib olacag Scopes-lar bunu bildirir
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,

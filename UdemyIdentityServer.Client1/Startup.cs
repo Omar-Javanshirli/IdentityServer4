@@ -54,8 +54,15 @@ namespace UdemyIdentityServer.Client1
                 opts.ClientId = "Client1-Mvc";
                 opts.ClientSecret = "secret";
                 opts.ResponseType = "code id_token";
+
+                //Biz bunu set etdiyimiz de gedecey ozu arxa planda UsernInfo Endpointine sorgu atacag ve ordan gelen Claimleri User.Claims-in
+                //icine add eliyecey. Bunu true etmediyimiz zaman Userin elave melumatlarina User.Claims uzerinnen catmag olar ve Claim-lere
+                //Userin elave melumatlari add olmur.
                 opts.GetClaimsFromUserInfoEndpoint = true;
+
+                //Ugurlu bir Authorization prosesinnen sora Authentication Properti-ye Access token ve Refresh tokeni save edecey
                 opts.SaveTokens = true;
+
                 opts.Scope.Add("api1.read");
                 opts.Scope.Add("offline_access");
                 opts.Scope.Add("CountryAndCity");
