@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer.AuthServer.Models;
 using IdentityServer.AuthServer.Repository;
+using IdentityServer.AuthServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,9 +39,13 @@ namespace UdemyIdentityServer.AuthServer
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
-                .AddTestUsers(Config.GetUsers().ToList())
+
+                //TestUser den istifade etdiyimiz zaman bunu bildirmleiyik burda.
+                //.AddTestUsers(Config.GetUsers().ToList())
+
                 //Bu method Development zamaninda istifade ede bileceyim PrivateKey ve PublicKey yaradir.
-                .AddDeveloperSigningCredential();
+                .AddDeveloperSigningCredential()
+                .AddProfileService<CustomProfileService>();
 
             services.AddControllersWithViews();
         }
