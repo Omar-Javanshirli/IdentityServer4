@@ -74,7 +74,8 @@ namespace UdemyIdentityServer.Client1
                 
                 opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    RoleClaimType = "role"
+                    RoleClaimType = "role",
+                    NameClaimType= "Name",
                 };
             });
 

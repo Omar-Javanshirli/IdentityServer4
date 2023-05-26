@@ -47,10 +47,11 @@ namespace UdemyIdentityServer.AuthServer
             {
                //Token icinde mutleq sekilde subject id dediyimiz userin id-si olmalidir ki biz bu tokenin kim ucun istehsal olundugunu bilek.
                 new IdentityResources.OpenId(),//subjet id
-                new IdentityResources.Profile(),//user haqqinda melumatlari oz icinde olan claim-lerde saxlayirlar
+                new IdentityResources.Profile(), //user haqqinda melumatlari oz icinde olan claim-lerde saxlayirlar
+                new IdentityResources.Email(),
 
                 new IdentityResource(){ Name="CountryAndCity", DisplayName="Country and City",Description="Kullanıcının ülke ve şehir bilgisi", UserClaims= new [] {"country","city"}},
-                new IdentityResource(){ Name="Roles",DisplayName="Roles", Description="Kullanıcı rolleri", UserClaims=new [] { "role"} }
+                new IdentityResource(){ Name="Roles",DisplayName="Roles", Description="Kullanıcı rolleri", UserClaims=new [] { "role"} },
             };
         }
 
@@ -143,6 +144,7 @@ namespace UdemyIdentityServer.AuthServer
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
                         "api1.read",
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         "CountryAndCity",
