@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer.AuthServer.Models;
+using IdentityServer.AuthServer.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,8 @@ namespace UdemyIdentityServer.AuthServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ICustomUserRepository, CustomUserRepository>();
+
             services.AddDbContext<CustomDbContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("LocalDb"));
