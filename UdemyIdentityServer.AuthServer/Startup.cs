@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using IdentityServer.AuthServer.Midlwares;
 using IdentityServer.AuthServer.Models;
@@ -29,7 +30,7 @@ namespace UdemyIdentityServer.AuthServer
         public void ConfigureServices(IServiceCollection services)
         {
 
-       
+
 
             services.AddScoped<ICustomUserRepository, CustomUserRepository>();
 
@@ -38,7 +39,27 @@ namespace UdemyIdentityServer.AuthServer
                 opt.UseSqlServer(Configuration.GetConnectionString("LocalDb"));
             });
 
+            var assemblyName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
             services.AddIdentityServer()
+                //ConfigurationDbContext cedvellini databasaya elave etmek ucun asagidaki kodlar yazilmalidir.
+                .AddConfigurationStore(opt =>
+                {
+                    opt.ConfigureDbContext = c => c.UseSqlServer(Configuration.GetConnectionString("LocalDb"),
+                        sqlOpt =>
+                        {
+                            sqlOpt.MigrationsAssembly(assemblyName);
+                        });
+                })
+                // PersistedGrabtDbContext  cedvellini databasaya elave etmek ucun asagidaki kodlar yazilmalidir.
+                .AddOperationalStore(opt =>
+                {
+                    opt.ConfigureDbContext = c => c.UseSqlServer(Configuration.GetConnectionString("LocalDb"),
+                        sqlOpt =>
+                        {
+                            sqlOpt.MigrationsAssembly(assemblyName);
+                        });
+                })
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
