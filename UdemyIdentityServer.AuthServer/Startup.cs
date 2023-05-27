@@ -49,7 +49,8 @@ namespace UdemyIdentityServer.AuthServer
 
                 //Bu method Development zamaninda istifade ede bileceyim PrivateKey ve PublicKey yaradir.
                 .AddDeveloperSigningCredential()
-                .AddProfileService<CustomProfileService>();
+                .AddProfileService<CustomProfileService>()
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>();
 
             services.AddControllersWithViews();
         }
