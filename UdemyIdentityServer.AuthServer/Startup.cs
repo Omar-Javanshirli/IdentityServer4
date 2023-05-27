@@ -68,7 +68,9 @@ namespace UdemyIdentityServer.AuthServer
                 app.UseHsts();
             }
 
+
             app.UseMiddleware<CspMiddleware>();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
