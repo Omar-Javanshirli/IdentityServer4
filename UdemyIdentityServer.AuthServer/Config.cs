@@ -170,7 +170,7 @@ namespace UdemyIdentityServer.AuthServer
 
                     //login oldugumuza zaman istifadecinin hansi melumatlarinin website-a gonderilmesinin icazelerinin 
                     //istifadeciler terefinnen    customize etmesini isteyirsizse bu true olmalidir.(Onay Sayfasi)
-                    RequireConsent = true
+                    //RequireConsent = true
                 },
                 new Client
                  {
