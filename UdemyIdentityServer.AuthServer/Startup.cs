@@ -51,7 +51,7 @@ namespace UdemyIdentityServer.AuthServer
                             sqlOpt.MigrationsAssembly(assemblyName);
                         });
                 })
-                // PersistedGrabtDbContext  cedvellini databasaya elave etmek ucun asagidaki kodlar yazilmalidir.
+                // ConfigurationDbContext  cedvellini databasaya elave etmek ucun asagidaki kodlar yazilmalidir.
                 .AddOperationalStore(opt =>
                 {
                     opt.ConfigureDbContext = c => c.UseSqlServer(Configuration.GetConnectionString("LocalDb"),
