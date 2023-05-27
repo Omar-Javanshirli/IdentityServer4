@@ -31,7 +31,7 @@ namespace UdemyIdentityServer.Client1
                 opts.DefaultScheme = "Cookies";
 
                 //bu cookie kimnnen xeberlesecey onu bildirmeliyik asagida kod vasitesi ile
-                opts.DefaultChallengeScheme = "oidc";
+                //opts.DefaultChallengeScheme = "oidc";
 
                 //AddCookie("Cookies"),AddOpenIdConnect("oidc") Bu kodlar vasitesi ile mende olan Cookie ile OpenId Connetden gelen 
                 //yani Authprozation Serverden  gelen Cookie bir biri ile xeberlesmeye baslayir
@@ -39,45 +39,46 @@ namespace UdemyIdentityServer.Client1
             }).AddCookie("Cookies", opts =>
             {
                 opts.AccessDeniedPath = "/Home/AccessDenied";
+                opts.LoginPath = "/Login/Index";
+            });
+            //.AddOpenIdConnect("oidc", opts =>
+            //{
+            //    opts.SignInScheme = "Cookies";
 
-            }).AddOpenIdConnect("oidc", opts =>
-            {
-                opts.SignInScheme = "Cookies";
+            //    //Cookie ve ya Token paylayan yer. mene bu hardan gonderilecek onu bildiririk
+            //    opts.Authority = "https://localhost:5001";
 
-                //Cookie ve ya Token paylayan yer. mene bu hardan gonderilecek onu bildiririk
-                opts.Authority = "https://localhost:5001";
+            //    opts.ClientId = "Client1-Mvc";
+            //    opts.ClientSecret = "secret";
+            //    opts.ResponseType = "code id_token";
 
-                opts.ClientId = "Client1-Mvc";
-                opts.ClientSecret = "secret";
-                opts.ResponseType = "code id_token";
+            //    //Biz bunu set etdiyimiz de gedecey ozu arxa planda UsernInfo Endpointine sorgu atacag ve ordan gelen Claimleri User.Claims-in
+            //    //icine add eliyecey. Bunu true etmediyimiz zaman Userin elave melumatlarina User.Claims uzerinnen catmag olar ve Claim-lere
+            //    //Userin elave melumatlari add olmur.
+            //    opts.GetClaimsFromUserInfoEndpoint = true;
 
-                //Biz bunu set etdiyimiz de gedecey ozu arxa planda UsernInfo Endpointine sorgu atacag ve ordan gelen Claimleri User.Claims-in
-                //icine add eliyecey. Bunu true etmediyimiz zaman Userin elave melumatlarina User.Claims uzerinnen catmag olar ve Claim-lere
-                //Userin elave melumatlari add olmur.
-                opts.GetClaimsFromUserInfoEndpoint = true;
+            //    //Ugurlu bir Authorization prosesinnen sora Authentication Properti-ye Access token ve Refresh tokeni save edecey
+            //    opts.SaveTokens = true;
 
-                //Ugurlu bir Authorization prosesinnen sora Authentication Properti-ye Access token ve Refresh tokeni save edecey
-                opts.SaveTokens = true;
+            //    opts.Scope.Add("api1.read");
 
-                opts.Scope.Add("api1.read");
+            //    //Refresh token ucun
+            //    opts.Scope.Add("offline_access");
 
-                //Refresh token ucun
-                opts.Scope.Add("offline_access");
+            //    opts.Scope.Add("CountryAndCity");
+            //    opts.Scope.Add("Roles");
 
-                opts.Scope.Add("CountryAndCity");
-                opts.Scope.Add("Roles");
-
-                opts.ClaimActions.MapUniqueJsonKey("country", "country");
-                opts.ClaimActions.MapUniqueJsonKey("city", "city");
-                opts.ClaimActions.MapUniqueJsonKey("role", "role");
+            //    opts.ClaimActions.MapUniqueJsonKey("country", "country");
+            //    opts.ClaimActions.MapUniqueJsonKey("city", "city");
+            //    opts.ClaimActions.MapUniqueJsonKey("role", "role");
 
                 
-                opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                {
-                    RoleClaimType = "role",
-                    NameClaimType= "Name",
-                };
-            });
+            //    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+            //    {
+            //        RoleClaimType = "role",
+            //        NameClaimType= "Name",
+            //    };
+            //});
 
             services.AddControllersWithViews();
         }

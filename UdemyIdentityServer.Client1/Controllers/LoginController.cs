@@ -29,8 +29,6 @@ namespace IdentityServer.Client1.Controllers
         }
 
 
-
-
         [HttpPost]
         public async Task<IActionResult> Index(LoginViewModel request)
         {
@@ -62,7 +60,8 @@ namespace IdentityServer.Client1.Controllers
 
             if (token.IsError)
             {
-                //hata ve loglama hissesi
+                ModelState.AddModelError(string.Empty, "Email ve ya sifre yanlisdir");
+                return View(); 
             }
 
             var userInfoRequest = new UserInfoRequest();
@@ -87,8 +86,9 @@ namespace IdentityServer.Client1.Controllers
 
             //ClaimsIdentity =>Userin melumatlarinnan emele gelen bir sexsiyyet vesiqesi. Bu class bizdem IEnumerable Claims isdeyeyir
             //ve Schema isdiyir.Calims-lari yuxarida elde etdiyimiz userInfo-dan elde edirik. Schemani ise startup file-da 
-            // opts.DefaultScheme => buna ne asign etmisikse onu veririk
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            // opts.DefaultScheme => buna ne asign etmisikse onu veririk.
+            //Name ve Role NameType ve RoleType bildirir.Startup file-da adini nece bildrimisik se burda da ele bildirmeliyik
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
 
             //Create ClaimPrincipial. ClaimPrincipial clasi biz den bir identity isdiyir. Bizim IIdentity interfacini implement 
             // elemis bir clasa ehtiyacmiz var.Bu Clasimizda ClaimsIdentity Olacag.
@@ -100,7 +100,6 @@ namespace IdentityServer.Client1.Controllers
             var authenticationProperties = new AuthenticationProperties();
             authenticationProperties.StoreTokens(new List<AuthenticationToken>()
             {
-                new AuthenticationToken{ Name=OpenIdConnectParameterNames.IdToken,Value= token.IdentityToken},
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.AccessToken,Value= token.AccessToken},
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.RefreshToken,Value= token.RefreshToken},
                 new AuthenticationToken{ Name=OpenIdConnectParameterNames.ExpiresIn,Value=
