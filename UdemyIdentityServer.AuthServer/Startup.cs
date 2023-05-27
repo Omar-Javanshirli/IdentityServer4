@@ -70,7 +70,7 @@ namespace UdemyIdentityServer.AuthServer
             }
 
 
-            app.UseMiddleware<CspMiddleware>();
+            //app.UseMiddleware<CspMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
