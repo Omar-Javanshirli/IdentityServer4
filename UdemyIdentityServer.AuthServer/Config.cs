@@ -172,7 +172,7 @@ namespace UdemyIdentityServer.AuthServer
                     //istifadeciler terefinnen    customize etmesini isteyirsizse bu true olmalidir.(Onay Sayfasi)
                     RequireConsent = true
                 },
-                 new Client
+                new Client
                  {
                     ClientId = "Client2-Mvc",
                     RequirePkce = false,
@@ -196,7 +196,26 @@ namespace UdemyIdentityServer.AuthServer
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime = (int)(DateTime.Now.AddDays(60) - DateTime.Now).TotalSeconds,
                     RequireConsent = false
-                 }
+                 },
+                new Client
+                {
+                    ClientId="js-client",
+                    //Client secret yazmax isdemedik de asagida ki koddan istifade etmek lazimdir.
+                    RequireClientSecret=false,
+                    ClientName="Js Client (Angular)",
+                    AllowedGrantTypes= GrantTypes.Code,//Authorization code grant axis type
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1.read",
+                        "api2.read"
+                   
+                    },
+                    RedirectUris={"http://localhost:4200/callback"},
+                    AllowedCorsOrigins={"http://localhost:4200"},
+                    PostLogoutRedirectUris={"http://localhost:4200"},
+                }
             };
         }
     }
