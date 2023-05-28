@@ -28,7 +28,7 @@ namespace IdentityServer_IdentityApi.AuthServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+        
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
@@ -67,6 +67,11 @@ namespace IdentityServer_IdentityApi.AuthServer
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
                 });
+
+            //bu kod ile IdentityServer-IdentityApi.AutServer Artig bir Api kimi davranag
+            services.AddLocalApiAuthentication();
+
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app)

@@ -26,6 +26,10 @@ namespace IdentityServer_IdentityApi.AuthServer
                 {
                        Scopes={ "api2.read","api2.write","api2.update" },
                           ApiSecrets = new []{new  Secret("secretapi2".Sha256()) }
+                },
+                new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+                {
+
                 }
             };
         }
@@ -39,7 +43,8 @@ namespace IdentityServer_IdentityApi.AuthServer
                 new ApiScope("api1.update", "API 1 için güncelleme izni"),
                 new ApiScope("api2.read", "API 2 için okuma izni"),
                 new ApiScope("api2.write", "API 2 için yazma izni"),
-                new ApiScope("api2.update", "API 2 için güncelleme izni")
+                new ApiScope("api2.update", "API 2 için güncelleme izni"),
+                new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
         }
 
@@ -173,11 +178,12 @@ namespace IdentityServer_IdentityApi.AuthServer
                     ClientId = "Client1-ResourceOwner-Mvc",
                     ClientName = "Client 1 app mvc uygulaması",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.LocalApi.ScopeName,
                         "api1.read",
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         "CountryAndCity",
