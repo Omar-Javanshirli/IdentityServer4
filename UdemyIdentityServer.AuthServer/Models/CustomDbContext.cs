@@ -4,7 +4,8 @@ namespace IdentityServer.AuthServer.Models
 {
     public class CustomDbContext : DbContext
     {
-        public CustomDbContext(DbContextOptions opts)
+        //Birden cox DbContext oldugu zaman Asagida gosderildiyi kimi Generic olarag Bildurmeliyik 
+        public CustomDbContext(DbContextOptions<CustomDbContext> opts)
             : base(opts)
         {
 

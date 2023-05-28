@@ -29,9 +29,6 @@ namespace UdemyIdentityServer.AuthServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
             services.AddScoped<ICustomUserRepository, CustomUserRepository>();
 
             services.AddDbContext<CustomDbContext>(opt =>
@@ -60,11 +57,10 @@ namespace UdemyIdentityServer.AuthServer
                             sqlOpt.MigrationsAssembly(assemblyName);
                         });
                 })
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryApiScopes(Config.GetApiScopes())
-                .AddInMemoryClients(Config.GetClients())
-                .AddInMemoryIdentityResources(Config.GetIdentityResources())
-
+                //.AddInMemoryApiResources(Config.GetApiResources())
+                //.AddInMemoryApiScopes(Config.GetApiScopes())
+                //.AddInMemoryClients(Config.GetClients())
+                //.AddInMemoryIdentityResources(Config.GetIdentityResources())
                 //TestUser den istifade etdiyimiz zaman bunu bildirmleiyik burda.
                 //.AddTestUsers(Config.GetUsers().ToList())
 
