@@ -31,7 +31,7 @@ namespace IdentityServer_IdentityApi.AuthServer
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -47,9 +47,10 @@ namespace IdentityServer_IdentityApi.AuthServer
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiScopes(Config.GetApiScopes())
+                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiResources(Config.GetApiResources())
                 .AddAspNetIdentity<ApplicationUser>();
 
             // not recommended for production - you need to store your key material somewhere secure
