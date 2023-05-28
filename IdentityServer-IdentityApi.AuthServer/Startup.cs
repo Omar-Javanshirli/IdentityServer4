@@ -38,7 +38,7 @@ namespace IdentityServer_IdentityApi.AuthServer
                 .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>
-            {
+            { 
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
