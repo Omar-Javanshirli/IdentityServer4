@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using IdentityServer.IdentityApi.AuthServer.Services;
 
 namespace IdentityServer_IdentityApi.AuthServer
 {
@@ -28,7 +29,6 @@ namespace IdentityServer_IdentityApi.AuthServer
 
         public void ConfigureServices(IServiceCollection services)
         {
-        
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
@@ -38,7 +38,7 @@ namespace IdentityServer_IdentityApi.AuthServer
                 .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>
-            { 
+            {
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
@@ -51,7 +51,8 @@ namespace IdentityServer_IdentityApi.AuthServer
                 .AddInMemoryApiScopes(Config.GetApiScopes())
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiResources(Config.GetApiResources())
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
