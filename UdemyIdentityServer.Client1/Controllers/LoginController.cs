@@ -11,23 +11,25 @@ using System.Globalization;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using UdemyIdentityServer.Client1.Services;
 
 namespace IdentityServer.Client1.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IConfiguration configuration;
+        private readonly IApiResourceHttpClient apiResourceHttpClient;
 
-        public LoginController(IConfiguration configuration)
+        public LoginController(IConfiguration configuration, IApiResourceHttpClient apiResourceHttpClient)
         {
             this.configuration = configuration;
+            this.apiResourceHttpClient = apiResourceHttpClient;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Index(LoginViewModel request)
@@ -81,7 +83,7 @@ namespace IdentityServer.Client1.Controllers
             // ------------------------------- Bura qeder olan hissede neynedik---------------------------------
             //Token Elde etdik.
             //User melumatlatini elde etdik
-            //Artig bu User melumatlarinnen bir Claim yarada bilerem.
+            //Artig bu User melumatlarinnan bir Claim yarada bilerem.
             // ====================================================================================================================//
 
             //ClaimsIdentity =>Userin melumatlarinnan emele gelen bir sexsiyyet vesiqesi. Bu class bizdem IEnumerable Claims isdeyeyir
@@ -110,6 +112,34 @@ namespace IdentityServer.Client1.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipa, authenticationProperties);
 
             return RedirectToAction("Index", "User");
+        }
+        
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(UserSaveViewModel request)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View();  
+            }
+
+            var result=await this.apiResourceHttpClient.SaveUserViewModel(request);
+            if (result!=null)
+            {
+                result.ForEach(x =>
+                {
+                    ModelState.AddModelError(string.Empty, x);     
+
+                });
+                return View();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
