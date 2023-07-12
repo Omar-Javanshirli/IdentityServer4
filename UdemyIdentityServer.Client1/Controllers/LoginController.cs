@@ -20,6 +20,7 @@ namespace IdentityServer.Client1.Controllers
         private readonly IConfiguration configuration;
         private readonly IApiResourceHttpClient apiResourceHttpClient;
 
+
         public LoginController(IConfiguration configuration, IApiResourceHttpClient apiResourceHttpClient)
         {
             this.configuration = configuration;
@@ -134,7 +135,6 @@ namespace IdentityServer.Client1.Controllers
                 result.ForEach(x =>
                 {
                     ModelState.AddModelError(string.Empty, x);     
-
                 });
                 return View();
             }

@@ -35,7 +35,7 @@ namespace UdemyIdentityServer.Client1.Controllers
 
             //HttpGet sorgusu yaradirig
             var response = await client.GetAsync("https://localhost:5016/api/products/getproducts");
-
+                
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
